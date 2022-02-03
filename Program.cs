@@ -12,36 +12,10 @@ namespace SampleAssistant
         static void Main(string[] args)
         {
             SpeechSynthesizer talk = new SpeechSynthesizer();
-             talk.SelectVoiceByHints(VoiceGender.Female); 
-             talk.Speak("Hello Sir, "+Greet());
-            System.Threading.Thread.Sleep(500);
-            talk.SpeakAsync("What would u like to do ?");
-            Console.WriteLine("1. Movies");
-            Console.WriteLine("2. Games");
-            Console.WriteLine("3. Songs");
-            string choice =Console.ReadLine();
-            switch (choice)
-            {
-                case "1":
-                    {
-                        talk.SpeakAsync("Which movie u like to watch?");
-                    }break;
-                case "2":
-                    {
-                        talk.SpeakAsync("Which Game u like to Play?");
-                    }
-                    break;
-                case "3":
-                    {
-                        talk.SpeakAsync("Booting up Spotify ");
-                    }
-                    break;
-                case "Nothing":
-                    {
-                        talk.SpeakAsync("Okay let's move on! ");
-                    }break;
-                default: { talk.SpeakAsync("I am not sure what u want to do!"); }break;
-            }
+             talk.SelectVoiceByHints(VoiceGender.Female);
+            talk.Rate=1;
+             talk.Speak("Hello Sir, "+Greet()+ ", This is Lacia, your Assistant, How can i help you ");
+          //  talk.SpeakAsync("This is Lacia, your Assistant, How can i help you ");
 
             bool off = true;
              boot:    //Restart point
@@ -53,11 +27,11 @@ namespace SampleAssistant
                 string input = getInput.ToLower();
                 if (input.Contains("time"))
                 {
-                    talk.SpeakAsync(DateTime.Now.ToString("h:mm tt"));
+                    talk.SpeakAsync("It's,"+DateTime.Now.ToString("h:mm tt"));
                 }
                 else if (input.Contains("date"))
                 {
-                    talk.SpeakAsync(DateTime.Now.ToString("dd/MM/yyyy"));
+                    talk.SpeakAsync("It's," + DateTime.Now.ToString("dd/MM/yyyy"));
                 }
                 else if (input.Contains("who are you") || input.Contains("tell me about yourself"))
                 {
@@ -77,7 +51,7 @@ namespace SampleAssistant
                 }
             } while(off);
 
-             restart:
+            restart:
             string tempreboot = Console.ReadLine();
             string reboot = tempreboot.ToLower();
             if (reboot.Contains("lacia")&& (reboot.Contains("wakeup")|| reboot.Contains("wake up")))
